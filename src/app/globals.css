@@ -1,26 +1,240 @@
 @import "tailwindcss";
 
+/* =========================================================================
+   Sistema visual Sofía · "Cálida y con chispa"
+   - Crema: fondo general
+   - Bosque + Lima: firma de marca (badge asterisco, resaltados, CTA secundarios)
+   - Pasteles por especialidad (cada una con su mascota):
+       Ansiedad → cielo · Dependencia → lila · Relaciones → melocotón · Autoestima → mantequilla
+   - Tinta: CTAs y titulares
+   - Gesto gráfico: el arco (retratos, doodles de arcoíris)
+   ========================================================================= */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #fbf8f1;
+  --foreground: #1f1d1a;
+  --cream-2: #f3eee3;
+  --ink: #1a1a17;
+  --forest: #23443a;
+  --forest-2: #2f5a4c;
+  --lime: #e2f27c;
+  --lime-deep: #c9dc4f;
+  --sky: #d3e8ff;
+  --sky-ink: #2b67a8;
+  --lilac: #e8ddff;
+  --lilac-ink: #6a4bb5;
+  --peach: #ffdccb;
+  --peach-ink: #b9502c;
+  --butter: #fff0b0;
+  --butter-ink: #8a6a00;
+  /* Alias heredados (secciones antiguas que siguen usando estas clases) */
+  --sage: #e3ece6;
+  --sage-deep: #2f5a4c;
+  --rose: #f7dde3;
+  --radius-arch: 44px 140px 44px 44px;
+  --radius-arch-top: 200px 200px 32px 32px;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-cream-2: var(--cream-2);
+  --color-ink: var(--ink);
+  --color-forest: var(--forest);
+  --color-forest-2: var(--forest-2);
+  --color-lime: var(--lime);
+  --color-lime-deep: var(--lime-deep);
+  --color-sky: var(--sky);
+  --color-sky-ink: var(--sky-ink);
+  --color-lilac: var(--lilac);
+  --color-lilac-ink: var(--lilac-ink);
+  --color-peach: var(--peach);
+  --color-peach-ink: var(--peach-ink);
+  --color-butter: var(--butter);
+  --color-butter-ink: var(--butter-ink);
+  --color-sage: var(--sage);
+  --color-sage-deep: var(--sage-deep);
+  --color-rose: var(--rose);
+  --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-serif), ui-serif, Georgia, Cambria, serif;
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Titulares con carácter: Fraunces suave y ligeramente "wonky" */
+.font-serif {
+  font-variation-settings: "SOFT" 100, "WONK" 0;
+}
+.font-serif .italic,
+.font-serif.italic,
+.font-serif em {
+  font-variation-settings: "SOFT" 100, "WONK" 1;
+}
+
+/* Arco asimétrico (retratos y fotos principales) */
+.arch {
+  border-radius: var(--radius-arch);
+}
+
+/* Arco superior (contenedores de sección) */
+.arch-top {
+  border-radius: var(--radius-arch-top);
+}
+
+@media (max-width: 640px) {
+  .arch-top {
+    border-radius: 120px 120px 28px 28px;
+  }
+}
+
+/* Tratamiento fotográfico común: cálido y suave */
+.photo-warm {
+  filter: saturate(0.9) sepia(0.06) contrast(0.98);
+}
+
+/* Etiqueta de sección: chip con punto lima (inspirado en tags de las referencias) */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.85rem 0.4rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid rgb(26 26 23 / 0.14);
+  background: rgb(255 255 255 / 0.6);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.eyebrow::before {
+  content: "";
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 999px;
+  background: var(--lime-deep);
+  box-shadow: 0 0 0 3px rgb(226 242 124 / 0.55);
+}
+.eyebrow-dark {
+  border-color: rgb(255 255 255 / 0.2);
+  background: rgb(255 255 255 / 0.06);
+  color: #f4f1ea;
+}
+
+/* Resaltado tipo rotulador lima */
+.hl {
+  background-image: linear-gradient(
+    transparent 60%,
+    var(--lime) 60%,
+    var(--lime) 92%,
+    transparent 92%
+  );
+  padding: 0 0.08em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+/* Suelo de cuadrícula en perspectiva (ref. 1) */
+.grid-floor {
+  background-image:
+    linear-gradient(to right, rgb(26 26 23 / 0.07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(26 26 23 / 0.07) 1px, transparent 1px);
+  background-size: 64px 64px;
+  transform: perspective(700px) rotateX(58deg);
+  transform-origin: center top;
+  mask-image: linear-gradient(to bottom, transparent 0%, black 25%, black 70%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 25%, black 70%, transparent 100%);
+}
+
+/* Cuadrícula plana sutil */
+.grid-flat {
+  background-image:
+    linear-gradient(to right, rgb(26 26 23 / 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(26 26 23 / 0.05) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+/* Animaciones suaves de doodles */
+@keyframes float-y {
+  0%, 100% { transform: translateY(0) rotate(var(--r, 0deg)); }
+  50% { transform: translateY(-10px) rotate(calc(var(--r, 0deg) + 6deg)); }
+}
+@keyframes spin-slow {
+  to { transform: rotate(360deg); }
+}
+@keyframes marquee {
+  to { transform: translateX(-50%); }
+}
+.animate-float {
+  animation: float-y 6s ease-in-out infinite;
+}
+.animate-float-slow {
+  animation: float-y 9s ease-in-out infinite;
+}
+.animate-spin-slow {
+  animation: spin-slow 18s linear infinite;
+}
+.animate-marquee {
+  animation: marquee 38s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Subtle peaceful background pattern */
+.bg-subtle-mesh {
+  background-image:
+    radial-gradient(at 0% 0%, rgba(220, 240, 230, 0.45) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(245, 230, 245, 0.4) 0px, transparent 50%),
+    radial-gradient(at 50% 100%, rgba(254, 243, 230, 0.5) 0px, transparent 50%);
+}
+
+.font-bubbly {
+  font-family: 'Bagel Fat One', 'Titan One', 'DynaPuff', cursive, sans-serif;
+}
+
+.font-fraunces {
+  font-family: var(--font-serif), serif;
+}
+
+/* Hide scrollbar for clean horizontal mobile carousels */
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Custom Hourglass & Cutout Masks from Sofia Therapy */
+.mask-hourglass {
+  mask-image: radial-gradient(circle 36px at 0% 50%, transparent 98%, black 100%),
+              radial-gradient(circle 36px at 100% 50%, transparent 98%, black 100%);
+  -webkit-mask-image: radial-gradient(circle 36px at 0% 50%, transparent 98%, black 100%),
+                      radial-gradient(circle 36px at 100% 50%, transparent 98%, black 100%);
+}
+
+.mask-hero-shape {
+  border-radius: 48px 180px 48px 48px;
+}
+
+.mask-arch-top {
+  border-radius: 180px 180px 24px 24px;
 }
